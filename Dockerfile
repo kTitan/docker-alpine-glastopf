@@ -60,7 +60,7 @@ RUN git clone https://github.com/mushorg/glastopf.git /opt/glastopf && \
     rm -rf /opt/glastopf /tmp/* /var/tmp/*
 
 ## Configuration
-RUN mkdir /opt/myhoneypot
+VOLUME ["/opt/myhoneypot"]
 
 EXPOSE 80
 WORKDIR /opt/myhoneypot
