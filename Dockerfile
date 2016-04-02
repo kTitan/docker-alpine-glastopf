@@ -46,7 +46,7 @@ RUN apk add --no-cache --update \
 RUN git clone https://github.com/mushorg/BFR.git /opt/BFR \
     && cd /opt/BFR \
     && phpize \
-    && ./configure --enable-bfr && \
+    && ./configure --enable-bfr \
     && make \
     && make install \
     && echo "zend_extension = "$(find /usr -name bfr.so) >> /etc/php/php.ini \
