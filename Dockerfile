@@ -42,22 +42,18 @@ RUN apk add --no-cache --update \
         py-webob \
     && rm -rf /var/cache/apk/*
 
-## Install and configure the PHP sandbox
-RUN git clone https://github.com/mushorg/BFR.git /opt/BFR && \
-    cd /opt/BFR && \
-    phpize && \
-    ./configure --enable-bfr && \
-    make && \
-    make install && \
-    echo "zend_extension = "$(find /usr -name bfr.so) >> /etc/php/php.ini && \
-    rm -rf /opt/BFR /tmp/* /var/tmp/*
-
-
-## Install glastopf from latest sources
-RUN git clone https://github.com/mushorg/glastopf.git /opt/glastopf && \
-    cd /opt/glastopf && \
-    python setup.py install && \
-    rm -rf /opt/glastopf /tmp/* /var/tmp/*
+## Install and configure the PHP sandbox and glastopf from latest sources
+RUN git clone https://github.com/mushorg/BFR.git /opt/BFR \
+    && cd /opt/BFR \
+    && phpize \
+    && ./configure --enable-bfr && \
+    && make \
+    && make install \
+    && echo "zend_extension = "$(find /usr -name bfr.so) >> /etc/php/php.ini \
+    && git clone https://github.com/mushorg/glastopf.git /opt/glastopf \
+    && cd /opt/glastopf \
+    && python setup.py install \
+    && rm -rf /opt/glastopf /opt/BFR /tmp/* /var/tmp/*
 
 ## Configuration
 VOLUME ["/opt/myhoneypot"]
